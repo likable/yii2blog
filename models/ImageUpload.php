@@ -16,10 +16,8 @@ class ImageUpload extends Model
 
         $path = Yii::getAlias('@web') . 'uploads/' . $currentImage;
 
-        var_dump($path);exit;
-
-        if (file_exists(Yii::getAlias('@web') . 'uploads/' . $currentImage)) {
-            unlink(Yii::getAlias('@web') . 'uploads/' . $currentImage);
+        if (!empty($currentImage) && file_exists($path)) {
+            unlink($path);
         }
 
         $filename = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
