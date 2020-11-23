@@ -10,20 +10,52 @@ class ImageUpload extends Model
 {
     public $image;
 
+    public function rules()
+    {
+        return [
+            [['image'], 'required'],
+            [['image'], 'file', 'extensions' => 'jpg,jpeg,png,bmp'],
+        ];
+    }
+
     public function uploadFile(UploadedFile $file, $currentImage)
     {
         $this->image = $file;
 
-        $path = Yii::getAlias('@web') . 'uploads/' . $currentImage;
-
-        if (!empty($currentImage) && file_exists($path)) {
-            unlink($path);
+        if ($this->validate()) {
+            $this->deleteCurrentImage($currentImage);
+            return $this->saveImage();
         }
-
-        $filename = strtolower(md5(uniqid($file->baseName)) . '.' . $file->extension);
-
-        $file->saveAs(Yii::getAlias('@web') . 'uploads/' . $filename);
-
-        return $file->name;
     }
+
+    private function getFolder()
+    {
+        return Yii::getAlias('@web') . 'uploads/';
+    }
+
+    private function generateFilename()
+    {
+        return strtolower(md5(uniqid($this->image->baseName)) . '.' . $this->image->extension);
+    }
+
+    public function deleteCurrentImage($currentImage)
+    {
+        if ($this->fileExists($currentImage)) {
+            unlink($this->getFolder() . $currentImage);
+        }
+    }
+
+    public function fileExists($currentImage)
+    {
+        return (!empty($currentImage) && file_exists($this->getFolder() . $currentImage));
+    }
+
+    private function saveImage()
+    {
+        $filename = $this->generateFilename();
+        $this->image->saveAs($this->getFolder() . $filename);
+
+        return $filename;
+    }
+
 }
