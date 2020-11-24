@@ -143,4 +143,11 @@ class ArticleController extends Controller
 
         return $this->render('image', ['model' => $model]);
     }
+
+    public function actionSetCategory($id)
+    {
+        $article = $this->findModel($id);
+        exit('Article title: ' . $article->title);
+    }
+
 }
