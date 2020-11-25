@@ -147,7 +147,8 @@ class ArticleController extends Controller
     public function actionSetCategory($id)
     {
         $article = $this->findModel($id);
-        exit('Article title: ' . $article->title);
+
+        //var_dump($article->category->title);
     }
 
 }
