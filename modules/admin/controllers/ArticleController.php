@@ -154,9 +154,9 @@ class ArticleController extends Controller
 
         if (Yii::$app->request->isPost) {
             $category = Yii::$app->request->post('category');
-            $article->saveCategory($category);
-
-            return $this->redirect(['view', 'id' => $article->id]);
+            if ($article->saveCategory($category)) {
+                return $this->redirect(['view', 'id' => $article->id]);
+            }
         }
 
         return $this->render('category', [
