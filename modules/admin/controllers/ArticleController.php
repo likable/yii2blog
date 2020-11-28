@@ -166,4 +166,12 @@ class ArticleController extends Controller
         ]);
     }
 
+    public function actionSetTags($id)
+    {
+        $article = $this->findModel($id);
+        var_dump($article->tags);exit;
+
+        // stoped here, rewrite this metod!
+    }
+
 }
