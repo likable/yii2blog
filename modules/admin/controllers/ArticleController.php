@@ -169,7 +169,9 @@ class ArticleController extends Controller
     public function actionSetTags($id)
     {
         $article = $this->findModel($id);
-        $selectedTags = [];
+        $selectedTags = $article->getSelectedTags();
+        // var_dump($selectedTags);exit;
+        // переписать $tags
         $tags = [
             1 => 'Nature',
             2 => 'Ships',

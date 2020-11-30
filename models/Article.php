@@ -114,4 +114,11 @@ class Article extends \yii\db\ActiveRecord
             ->viaTable('article_tag', ['article_id' => 'id']);
     }
 
+    public function getSelectedTags()
+    {
+        $selectedTags = $this->getTags()->select('id')->asArray()->all();
+        return ArrayHelper::getColumn($selectedTags, 'id');
+    }
+
+
 }
