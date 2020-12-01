@@ -170,12 +170,13 @@ class ArticleController extends Controller
     {
         $article = $this->findModel($id);
         $selectedTags = $article->getSelectedTags();
-        // var_dump($selectedTags);exit;
-        // переписать $tags
-        $tags = [
-            1 => 'Nature',
-            2 => 'Ships',
-        ];
+        $tags = $article->getAllTags();
+
+        if (Yii::$app->request->isPost) {
+            $tags = Yii::$app->request->post('tags');
+            $article->saveTags($tags);
+            return $this->redirect(['view', 'id' => $article->id]);
+        }
 
         return $this->render('tags', [
             'selectedTags' => $selectedTags,
