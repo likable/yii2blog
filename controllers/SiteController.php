@@ -125,4 +125,28 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    /**
+     * Displays one article.
+     *
+     * @return string
+     */
+    public function actionView()
+    {
+        return $this->render('single');
+    }
+
+    /**
+     * Displays categories.
+     *
+     * @return string
+     */
+    public function actionCategory()
+    {
+        return $this->render('category');
+    }
+
+
+
+
 }
