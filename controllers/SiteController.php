@@ -146,9 +146,12 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionView()
+    public function actionView($id)
     {
-        return $this->render('single');
+        $article = Article::findOne($id);
+        return $this->render('single', [
+            'article' => $article
+        ]);
     }
 
     /**
