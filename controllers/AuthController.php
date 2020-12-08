@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\LoginForm;
+use app\models\User;
 use Yii;
 use yii\console\Controller;
 use yii\web\Response;
@@ -26,7 +27,7 @@ class AuthController extends Controller
         }
 
         $model->password = '';
-        return $this->render('login', [
+        return $this->render('/site/login', [
             'model' => $model,
         ]);
     }
@@ -45,7 +46,11 @@ class AuthController extends Controller
 
     public function actionTest()
     {
-
+//        $user = User::findOne(1); // null
+//        Yii::$app->user->login($user);
+//
+//        echo "<pre>";
+//        print_r(Yii::$app->user->isGuest);exit;
     }
 
 }
