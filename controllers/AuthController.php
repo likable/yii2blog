@@ -5,7 +5,7 @@ namespace app\controllers;
 use app\models\LoginForm;
 use app\models\User;
 use Yii;
-use yii\console\Controller;
+use yii\web\Controller;
 use yii\web\Response;
 
 class AuthController extends Controller
@@ -44,13 +44,12 @@ class AuthController extends Controller
         return $this->goHome();
     }
 
+    /**
+     * Action for testing
+     */
     public function actionTest()
     {
-//        $user = User::findOne(1); // null
-//        Yii::$app->user->login($user);
-//
-//        echo "<pre>";
-//        print_r(Yii::$app->user->isGuest);exit;
+
     }
 
 }
