@@ -120,13 +120,16 @@ class SiteController extends Controller
         $recent = Article::getRecent();
         $categories = Category::getAll();
 
-        $comments = $article->getComments();
+        $comments = $article->comments;
+        $commentForm = new CommentForm();
 
         return $this->render('single', [
             'article' => $article,
             'popular' => $popular,
             'recent' => $recent,
             'categories' => $categories,
+            'comments' => $comments,
+            'commentForm' => $commentForm,
         ]);
     }
 
