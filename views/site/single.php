@@ -40,36 +40,41 @@
                     </div>
                 </article>
 
-                <div class="bottom-comment"><!--bottom comment-->
-                    <h4>3 comments</h4>
+                <?php if (!empty($comments)): ?>
+                    <?php foreach($comments as $comment): ?>
+                        <div class="bottom-comment"><!--bottom comment-->
+                            <div class="comment-img">
+                                <img class="img-circle" src="<?= $comment->user->image; ?>" alt="">
+                            </div>
 
-                    <div class="comment-img">
-                        <img class="img-circle" src="assets/images/comment-img.jpg" alt="">
-                    </div>
+                            <div class="comment-text">
+                                <a href="#" class="replay btn pull-right"> Replay</a>
+                                <h5><?= $comment->user->name; ?></h5>
 
-                    <div class="comment-text">
-                        <a href="#" class="replay btn pull-right"> Replay</a>
-                        <h5>Rubel Miah</h5>
-
-                        <p class="comment-date">
-                            December, 02, 2015 at 5:57 PM
-                        </p>
+                                <p class="comment-date">
+                                    <?= $comment->getDate(); ?>
+                                </p>
 
 
-                        <p class="para">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                            diam nonumy
-                            eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
-                            voluptua. At vero eos et cusam et justo duo dolores et ea rebum.</p>
-                    </div>
-                </div>
-                <!-- end bottom comment-->
+                                <p class="para"><?= $comment->text; ?></p>
+                            </div>
+                        </div>
+                        <!-- end bottom comment-->
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+
 
 
                 <div class="leave-comment"><!--leave comment-->
                     <h4>Leave a reply</h4>
 
+                    <?php \yii\widgets\ActiveForm::begin([
+                            'action' => ['site/comment', 'id' => $article->id],
+                            'options' => ['class' => 'form-horizontal contact-form', 'role' => 'form'],
+                        ]);?>
 
-                    <form class="form-horizontal contact-form" role="form" method="post" action="#">
+
                         <div class="form-group">
                             <div class="col-md-12">
 										<textarea class="form-control" rows="6" name="message"
@@ -77,7 +82,9 @@
                             </div>
                         </div>
                         <a href="#" class="btn send-btn">Post Comment</a>
-                    </form>
+                    
+                    <?php \yii\widgets\ActiveForm::end();?>
+
                 </div><!--end leave comment-->
             </div>
 
