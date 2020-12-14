@@ -129,7 +129,7 @@ class SiteController extends Controller
             'popular' => $popular,
             'recent' => $recent,
             'categories' => $categories,
-            'comments' => $comments,
+            'comments' => $article->getArticleComments(),
             'commentForm' => $commentForm,
         ]);
     }
@@ -156,6 +156,19 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionComment($id)
+    {
+        $model = new CommentForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            if ($model->saveComment($id)) {
+                Yii::$app->getSession()->setFlash('comment', 'Youre comment will be added soon!');
+                return $this->redirect(['site/view', 'id' => $id]);
+            }
+        }
+
+    }
 
 
 
